@@ -1,5 +1,7 @@
 package hillelauto.jira;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.util.List;
 
@@ -29,10 +31,10 @@ public class IssuePage {
     @FindBy(css = "a.attachment-title")
     private WebElement linkAttachmentName;
     
-    @FindBy(css = "body > pre")
-    private WebElement testFileText;
+    @FindBy(css = "body > img")
+    private WebElement testFile;
     
-
+   
     public IssuePage(WebDriver browser) {
         this.browser = browser;
     }
@@ -67,13 +69,17 @@ public class IssuePage {
 
         attachmentLink = linkAttachmentName.getAttribute("href");
 
+
     }
 
-    public void downloadAttachment() {
-        browser.get(attachmentLink);
-        Assert.assertEquals("Uplaod Attachment test file", testFileText.getText());
-       
+    public void downloadAttachment() throws NoSuchAlgorithmException, IOException {
+    	//browser.get(attachmentLink);
+       // attachmentLink = testFile.getAttribute("src");
+        Assert.assertEquals(Tools.getURLDigest(attachmentLink, JiraVars.attachmentFileLocation), Tools.getFileDigest(JiraVars.attachmentFileLocation + JiraVars.attachmentFileName));
+        
         
         // https://stackoverflow.com/questions/304268/getting-a-files-md5-checksum-in-java
     }
+    
+    
 }

@@ -1,5 +1,8 @@
 package hillelauto.jira;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -9,11 +12,13 @@ import hillelauto.WebDriverTestBase;
 public class JiraTests extends WebDriverTestBase {
     private LoginPage loginPage;
     private IssuePage issuePage;
+    private AdminPage adminPage;
 
     @BeforeClass(alwaysRun = true)
     public void initPages() {
         loginPage = PageFactory.initElements(browser, LoginPage.class);
         issuePage = PageFactory.initElements(browser, IssuePage.class);
+        adminPage = PageFactory.initElements(browser, AdminPage.class);
         System.out.println("Jira Pages Initialized");
     }
 
@@ -44,7 +49,20 @@ public class JiraTests extends WebDriverTestBase {
 
     @Test(description = "6. Download Attachment", dependsOnMethods = { "uploadAttachment" }, groups = {
             "Issues.Attachments", "disabled" })
-    public void downloadAttachment() {
+    public void downloadAttachment() throws NoSuchAlgorithmException, IOException {
         issuePage.downloadAttachment();
     }
+    
+    @Test(description = "7. Admin Valid Login", priority = 0, groups = { "Sanity", "Admin" })
+    public void successfulAdminLogin() {
+    	loginPage.adminLogin();
+    }
+    
+    @Test(description = "8. Create User", dependsOnMethods = { "successfulAdminLogin" }, groups = { "Sanity", "Admin", "User.Create" })
+    public void createUser() {
+    	adminPage.createUser();
+    }
+   
+    
+  
 }
