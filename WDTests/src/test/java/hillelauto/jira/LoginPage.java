@@ -16,9 +16,12 @@ public class LoginPage {
     private final WebDriver browser;
 
     @FindBy(css = "a#header-details-user-fullname")
-    private WebElement buttonProfile;
+    private static WebElement buttonProfile;
     @FindBy(css = "div#usernameerror")
     private List<WebElement> messageError;
+    
+    @FindBy(css = "a#log_out")
+    private static WebElement logOutButton;
 
     public LoginPage(WebDriver browser) {
         this.browser = browser;
@@ -47,6 +50,12 @@ public class LoginPage {
         Tools.clearAndFill(inputUsername, JiraVars.adminName);
         Tools.clearAndFill(inputPassword, JiraVars.adminPassword).submit();
         Assert.assertEquals(JiraVars.adminName, buttonProfile.getAttribute("data-username"));
+    }
+    
+    public static  void logout() {
+        buttonProfile.click();
+    	logOutButton.click();
+    	
     }
     
 }

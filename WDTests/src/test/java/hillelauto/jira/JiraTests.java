@@ -22,47 +22,50 @@ public class JiraTests extends WebDriverTestBase {
         System.out.println("Jira Pages Initialized");
     }
 
-    @Test(description = "1. Invalid Login", priority = -1)
+    @Test(description = "19. Invalid Login", priority = -1, groups = { "User", "disabled" })
     public void failureLogin() {
         loginPage.failureLogin();
     }
 
-    @Test(description = "2. Valid Login", groups = { "Sanity" })
+    @Test(description = "20. Valid Login", groups = { "Sanity", "User" })
     public void successfulLogin() {
         loginPage.successfulLogin();
     }
 
-    @Test(description = "3. Create issue", dependsOnMethods = { "successfulLogin" }, groups = { "Sanity", "Issues" })
+    @Test(description = "21. Create issue", dependsOnMethods = { "successfulLogin" }, groups = { "Sanity", "Issues", "User" })
     public void createIssue() {
         issuePage.createIssue();
     }
 
-    @Test(description = "4. Open issue", dependsOnMethods = { "createIssue" }, groups = { "Sanity", "Issues" })
+    @Test(description = "22. Open issue", dependsOnMethods = { "createIssue" }, groups = { "Sanity", "Issues", "User" })
     public void openIssue() {
         issuePage.openIssue();
     }
 
-    @Test(description = "5. Uplaod Attachment", dependsOnMethods = { "openIssue" }, groups = { "Issues.Attachments" })
+    @Test(description = "23. Uplaod Attachment", dependsOnMethods = { "openIssue" }, groups = { "Issues.Attachments", "User" })
     public void uploadAttachment() {
         issuePage.uploadAttachment();
     }
 
-    @Test(description = "6. Download Attachment", dependsOnMethods = { "uploadAttachment" }, groups = {
-            "Issues.Attachments", "disabled" })
+    @Test(description = "24. Download Attachment", dependsOnMethods = { "uploadAttachment" }, groups = {
+            "Issues.Attachments", "User" })
     public void downloadAttachment() throws NoSuchAlgorithmException, IOException {
         issuePage.downloadAttachment();
     }
     
-    @Test(description = "7. Admin Valid Login", priority = 0, groups = { "Sanity", "Admin" })
+    @Test(description = "25. Admin Valid Login", priority = 1, groups = { "Sanity", "Admin" })
     public void successfulAdminLogin() {
     	loginPage.adminLogin();
     }
     
-    @Test(description = "8. Create User", dependsOnMethods = { "successfulAdminLogin" }, groups = { "Sanity", "Admin", "User.Create" })
+    @Test(description = "26. Create User", dependsOnMethods = { "successfulAdminLogin" }, groups = { "Sanity", "Admin" })
     public void createUser() {
     	adminPage.createUser();
     }
    
-    
+    @Test(description = "27. Delete User", dependsOnMethods = { "createUser" }, groups = { "Sanity", "Admin", "disabled" })
+    public void deleteUser() {
+//    	adminPage.deleteUser();
+    }
   
 }

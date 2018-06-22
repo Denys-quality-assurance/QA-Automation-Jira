@@ -20,6 +20,8 @@ public class AdminPage {
     private final By newUserName = By.cssSelector("input#user-create-username");
     @FindBy(css = "table#user_browser_table > tbody > tr:nth-child(1) > td:nth-child(2) > div > a > span")
     private WebElement mailInUsersTable;
+    //private final By FilterUsers = By.cssSelector("input#user-filter-userSearchFilter");
+
     
     public void createUser() {
     	adminMenu.click();
@@ -33,9 +35,19 @@ public class AdminPage {
     	Assert.assertEquals(JiraVars.newEMail, mailInUsersTable.getText());
     }
     
-    public void deleteUser() {
+/*    public void deleteUser() {
+    	adminMenu.click();
+    	adminUserMenu.click();
+    	Tools.clearAndFill(FilterUsers, JiraVars.newName).submit();
     	
+    	
+    	try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+   	
     }
-    
+ */    
     
 }
