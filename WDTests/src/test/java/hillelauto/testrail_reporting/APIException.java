@@ -9,7 +9,7 @@
  * Copyright Gurock Software GmbH. See license.md for details.
  */
 
-package hillelauto.jira.testrail_api;
+package hillelauto.testrail_reporting;
  
 public class APIException extends Exception
 {

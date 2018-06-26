@@ -28,11 +28,11 @@ public class Tools {
         return element;
     }
 
-    public static String timestamp(boolean forMail) {
-    	if (forMail) {
-        return new SimpleDateFormat("dd/MM/yy_HH_mm").format(new Date());
+    public static String timestamp(String purpose) {
+    	if (purpose == "forIssue") {
+        return new SimpleDateFormat("dd/MM/yy HH:mm").format(new Date());
     	} else {
-    		return new SimpleDateFormat("dd/MM/yy HH:mm").format(new Date());
+    		return new SimpleDateFormat("dd/MM/yy_HH_mm").format(new Date());
     	}
     }
     

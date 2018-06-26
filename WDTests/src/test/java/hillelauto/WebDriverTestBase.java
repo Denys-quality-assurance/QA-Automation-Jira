@@ -1,14 +1,11 @@
 package hillelauto;
 
-import hillelauto.jira.testrail_api.TestRail;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterGroups;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -29,17 +26,8 @@ public class WebDriverTestBase {
 
         Tools.setDriver(browser);
     }
-    
-    @AfterMethod
-    public void reportResult(ITestResult testResult) throws Exception {
-    	TestRail testRail = new TestRail();
-    	String testID = testResult.getMethod().getDescription().split("\\.")[0];
-    	Boolean testSuccess = testResult.isSuccess();
-
-        testRail.setCaseResult(testID, JiraVars.testRun, testSuccess);
-    }
-   
-    @AfterGroups("User")
+ 
+    @AfterGroups(groups={ "User", "Admin" })
     public void logout() {
     	browser.get(JiraVars.baseURL);
     	LoginPage.logout();

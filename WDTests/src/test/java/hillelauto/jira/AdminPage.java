@@ -1,6 +1,7 @@
 package hillelauto.jira;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -8,7 +9,9 @@ import org.testng.Assert;
 import hillelauto.Tools;
 
 public class AdminPage {
-    @FindBy(css = "a#admin_menu")
+	private WebDriver browser;
+	
+	@FindBy(css = "a#admin_menu")
     private WebElement adminMenu;
     @FindBy(css = "a#admin_users_menu")
     private WebElement adminUserMenu;
@@ -20,8 +23,17 @@ public class AdminPage {
     private final By newUserName = By.cssSelector("input#user-create-username");
     @FindBy(css = "table#user_browser_table > tbody > tr:nth-child(1) > td:nth-child(2) > div > a > span")
     private WebElement mailInUsersTable;
-    //private final By FilterUsers = By.cssSelector("input#user-filter-userSearchFilter");
-
+    private final By FilterUsers = By.cssSelector("input#user-filter-userSearchFilter");
+   
+    private By userActionsButton = By.cssSelector("a[href=\"#user-actions-"+JiraVars.newName+"\"]");
+    private By deleteUserButton = By.cssSelector("a[id=\"deleteuser_link_"+JiraVars.newName+"\"]");
+    @FindBy(css = "input#delete_user_confirm-submit")
+    private WebElement deleteUserConfirm;
+	
+    
+    public AdminPage(WebDriver browser) {
+        this.browser = browser;
+    }
     
     public void createUser() {
     	adminMenu.click();
@@ -35,19 +47,14 @@ public class AdminPage {
     	Assert.assertEquals(JiraVars.newEMail, mailInUsersTable.getText());
     }
     
-/*    public void deleteUser() {
+    public void deleteUser() {
     	adminMenu.click();
     	adminUserMenu.click();
-    	Tools.clearAndFill(FilterUsers, JiraVars.newName).submit();
-    	
-    	
-    	try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-   	
+    	Tools.clearAndFill(FilterUsers, JiraVars.newFullName).submit();
+    	browser.findElement(userActionsButton).click();
+    	browser.findElement(deleteUserButton).click();
+    	deleteUserConfirm.click();
     }
- */    
+    
     
 }

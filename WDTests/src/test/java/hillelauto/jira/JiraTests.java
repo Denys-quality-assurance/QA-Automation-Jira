@@ -13,7 +13,7 @@ public class JiraTests extends WebDriverTestBase {
     private LoginPage loginPage;
     private IssuePage issuePage;
     private AdminPage adminPage;
-
+    
     @BeforeClass(alwaysRun = true)
     public void initPages() {
         loginPage = PageFactory.initElements(browser, LoginPage.class);
@@ -63,9 +63,9 @@ public class JiraTests extends WebDriverTestBase {
     	adminPage.createUser();
     }
    
-    @Test(description = "27. Delete User", dependsOnMethods = { "createUser" }, groups = { "Sanity", "Admin", "disabled" })
+    @Test(description = "396. Delete User", dependsOnMethods = { "createUser" }, groups = { "Sanity", "Admin" })
     public void deleteUser() {
-//    	adminPage.deleteUser();
+    	adminPage.deleteUser();
     }
   
 }
