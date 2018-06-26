@@ -30,6 +30,9 @@ public class AdminPage {
     @FindBy(css = "input#delete_user_confirm-submit")
     private WebElement deleteUserConfirm;
 	
+    @FindBy(css = "div[class = \"jira-adbox jira-adbox-medium no-results user-browser__row-empty\"]")
+    private WebElement noResultsUserField;
+    
     
     public AdminPage(WebDriver browser) {
         this.browser = browser;
@@ -54,6 +57,8 @@ public class AdminPage {
     	browser.findElement(userActionsButton).click();
     	browser.findElement(deleteUserButton).click();
     	deleteUserConfirm.click();
+    	
+    	Assert.assertTrue(noResultsUserField.isDisplayed());
     }
     
     
